@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -8,13 +9,19 @@ import {
   CartesianGrid
 } from "recharts";
 
-/**
- * DualAxisChart
- * Left Y-axis  -> Study Hours
- * Right Y-axis -> Caffeine (mg)
- * X-axis       -> Date
- */
+// Format date like "Jan 12"
+function formatDate(dateStr) {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric"
+  });
+}
+
 export default function DualAxisChart({ data }) {
+  const [showStudy, setShowStudy] = useState(true);
+  const [showCaffeine, setShowCaffeine] = useState(true);
+
   if (!data || data.length === 0) {
     return (
       <div style={{ textAlign: "center", color: "#94a3b8" }}>
@@ -25,16 +32,44 @@ export default function DualAxisChart({ data }) {
 
   return (
     <div>
-      <h2 style={{ marginBottom: "1rem" }}>
+      <h2 style={{ marginBottom: "0.75rem" }}>
         Study Duration vs Caffeine Intake
       </h2>
 
-      <ResponsiveContainer width="100%" height={300}>
+      {/* Toggles */}
+      <div
+        style={{
+          display: "flex",
+          gap: "1rem",
+          marginBottom: "1rem",
+          fontSize: "0.9rem",
+          color: "#94a3b8"
+        }}
+      >
+        <label>
+          <input
+            type="checkbox"
+            checked={showStudy}
+            onChange={() => setShowStudy(!showStudy)}
+          />{" "}
+          Study Hours
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            checked={showCaffeine}
+            onChange={() => setShowCaffeine(!showCaffeine)}
+          />{" "}
+          Caffeine (mg)
+        </label>
+      </div>
+
+      <ResponsiveContainer width="100%" height={320}>
         <LineChart
           data={data}
           margin={{ top: 10, right: 30, left: 10, bottom: 5 }}
         >
-          {/* Grid */}
           <CartesianGrid
             strokeDasharray="3 3"
             stroke="#1e293b"
@@ -43,70 +78,80 @@ export default function DualAxisChart({ data }) {
           {/* X Axis */}
           <XAxis
             dataKey="date"
+            tickFormatter={formatDate}
             stroke="#94a3b8"
             tick={{ fontSize: 12 }}
           />
 
-          {/* Left Y Axis (Study Hours) */}
-          <YAxis
-            yAxisId="left"
-            stroke="#4ade80"
-            tick={{ fontSize: 12 }}
-            label={{
-              value: "Study (hrs)",
-              angle: -90,
-              position: "insideLeft",
-              fill: "#4ade80"
-            }}
-          />
+          {/* Study Axis */}
+          {showStudy && (
+            <YAxis
+              yAxisId="left"
+              stroke="#4ade80"
+              tick={{ fontSize: 12 }}
+              label={{
+                value: "Study (hrs)",
+                angle: -90,
+                position: "insideLeft",
+                fill: "#4ade80"
+              }}
+            />
+          )}
 
-          {/* Right Y Axis (Caffeine) */}
-          <YAxis
-            yAxisId="right"
-            orientation="right"
-            stroke="#facc15"
-            tick={{ fontSize: 12 }}
-            label={{
-              value: "Caffeine (mg)",
-              angle: 90,
-              position: "insideRight",
-              fill: "#facc15"
-            }}
-          />
+          {/* Caffeine Axis */}
+          {showCaffeine && (
+            <YAxis
+              yAxisId="right"
+              orientation="right"
+              stroke="#facc15"
+              tick={{ fontSize: 12 }}
+              label={{
+                value: "Caffeine (mg)",
+                angle: 90,
+                position: "insideRight",
+                fill: "#facc15"
+              }}
+            />
+          )}
 
-          {/* Tooltip */}
           <Tooltip
             contentStyle={{
               backgroundColor: "#020617",
               border: "1px solid #1e293b",
-              borderRadius: "8px",
-              color: "#e5e7eb"
+              borderRadius: "8px"
             }}
             labelStyle={{ color: "#38bdf8" }}
           />
 
-          {/* Lines */}
-          <Line
-            yAxisId="left"
-            type="monotone"
-            dataKey="study"
-            stroke="#4ade80"
-            strokeWidth={2}
-            dot={{ r: 3 }}
-            activeDot={{ r: 5 }}
-            name="Study Hours"
-          />
+          {/* Study Line */}
+          {showStudy && (
+            <Line
+              yAxisId="left"
+              type="monotone"
+              dataKey="study"
+              stroke="#4ade80"
+              strokeWidth={2}
+              dot={{ r: 3 }}
+              activeDot={{ r: 5 }}
+              animationDuration={600}
+              name="Study Hours"
+            />
+          )}
 
-          <Line
-            yAxisId="right"
-            type="monotone"
-            dataKey="caffeine"
-            stroke="#facc15"
-            strokeWidth={2}
-            dot={{ r: 3 }}
-            activeDot={{ r: 5 }}
-            name="Caffeine (mg)"
-          />
+          {/* Caffeine Line */}
+          {showCaffeine && (
+            <Line
+              yAxisId="right"
+              type="monotone"
+              dataKey="caffeine"
+              stroke="#facc15"
+              strokeWidth={2}
+              dot={{ r: 3 }}
+              activeDot={{ r: 5 }}
+              animationDuration={600}
+              name="Caffeine (mg)"
+            />
+          )}
         </LineChart>
       </ResponsiveContainer>
     </div>

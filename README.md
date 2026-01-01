@@ -1,16 +1,36 @@
-# React + Vite
+# FlowState 🧠⚡
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+FlowState is a React-based analytics dashboard that helps students
+identify burnout patterns by correlating health habits with study performance.
 
-Currently, two official plugins are available:
+## Purpose
+- Help students understand patterns in their habits affecting productivity and mood.
+- Track key metrics: sleep quality, water intake, caffeine, study duration, and mood.
+- Provide insights using correlation analysis (e.g., "You study 20% more effectively when you drink <2 cups of coffee").
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Why I Made It
+- Students often feel burnt out without understanding why.
+- Connecting daily habits to performance helps make better lifestyle choices.
+- Visualizing habits and their correlation encourages healthier routines.
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
+- Daily habit tracking
+- Dual-axis data visualizations
+- Correlation-based insights
+- Burnout risk detection
+- Local data persistence
 
-## Expanding the ESLint configuration
+## Tech Stack
+- React.js
+- Recharts
+- Custom Hooks
+- LocalStorage
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Key Learnings
+- Data modeling and correlation logic
+- Advanced charting techniques
+- UI/UX focused component design
+- Scalable React architecture
+
+
