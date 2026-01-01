@@ -1,0 +1,16 @@
+.insight-card {
+  background: linear-gradient(135deg, #0f172a, #020617);
+  border: 1px solid #1e293b;
+  padding: 1.5rem;
+  border-radius: 16px;
+}
+
+.insight-card h3 {
+  color: var(--success);
+  margin-bottom: 0.5rem;
+}
+
+.insight-card p {
+  color: var(--text);
+  line-height: 1.5;
+}
